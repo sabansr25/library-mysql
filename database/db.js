@@ -30,8 +30,9 @@ pool.getConnection((err, connection) => {
 module.exports = pool;
 */
 
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
+// Create a new Sequelize instance and connect to the database
 const sequelize = new Sequelize('library', 'root', 'Saba@1380', {
     host: 'localhost',
     dialect: 'mysql',
@@ -39,19 +40,35 @@ const sequelize = new Sequelize('library', 'root', 'Saba@1380', {
         max: 10,
         min: 0,
         idle: 10000
+    },
+    logging: console.log
+});
+
+// Define a model for the books table
+const Book = sequelize.define('Book', {
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    author: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    year: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('MySQL is connected.');
-        return sequelize.query('SELECT 1 + 1 AS solution');
-    })
-    .then(results => {
-        console.log('The solution is:', results[0][0].solution);
-    })
-    .catch(err => {
-        console.error('Error connecting to MySQL:', err);
-    });
+module.exports = { sequelize, Book };
 
-module.exports = sequelize;

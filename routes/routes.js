@@ -1,3 +1,5 @@
+
+/*
 const express = require('express');
 const pool = require('../database/db')
 const router = express.Router();
@@ -158,6 +160,80 @@ router.delete('/:id', (req, res) => {
             res.json({ message: 'Book deleted successfully' });
         });
     });
+});
+
+module.exports = router;
+*/
+const express = require('express');
+const router = express.Router();
+const { sequelize, Book } = require('../database/db');
+
+// Define a route for getting all books from the database
+router.get('/books', async (req, res) => {
+    try {
+        const books = await Book.findAll();
+        res.json(books);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error getting books from the database' });
+    }
+});
+
+// Define a route for adding a new book to the database
+router.post('/books', async (req, res) => {
+    try {
+        const book = await Book.create(req.body);
+        res.status(201).json(book);
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ message: 'Error adding the book to the database' });
+    }
+});
+
+// Define a route for getting a single book by ID from the database
+router.get('/books/:id', async (req, res) => {
+    try {
+        const book = await Book.findByPk(req.params.id);
+        if (!book) {
+            res.status(404).json({ message: 'Book not found' });
+            return;
+        }
+        res.json(book);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error getting the book from the database' });
+    }
+});
+
+// Define a route for updating a book in the database
+router.put('/books/:id', async (req, res) => {
+    try {
+        const [numUpdated, book] = await Book.update(req.body, { where: { id: req.params.id } });
+        if (numUpdated === 0) {
+            res.status(404).json({ message: 'Book not found' });
+            return;
+        }
+        const updatedBook = await Book.findByPk(req.params.id);
+        res.json(updatedBook);
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ message: 'Error updating the book in the database' });
+    }
+});
+
+// Define a route for deleting a book by ID from the database
+router.delete('/books/:id', async (req, res) => {
+    try {
+        const numDeleted = await Book.destroy({ where: { id: req.params.id } });
+        if (numDeleted === 0) {
+            res.status(404).json({ message: 'Book not found' });
+            return;
+        }
+        res.json({ message: 'Book deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error deleting the book from the database' });
+    }
 });
 
 module.exports = router;
