@@ -1,3 +1,4 @@
+/*
 const mysql = require('mysql');
 
 const pool = mysql.createPool({
@@ -27,3 +28,30 @@ pool.getConnection((err, connection) => {
 });
 
 module.exports = pool;
+*/
+
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('library', 'root', 'Saba@1380', {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+        max: 10,
+        min: 0,
+        idle: 10000
+    }
+});
+
+sequelize.authenticate()
+    .then(() => {
+        console.log('MySQL is connected.');
+        return sequelize.query('SELECT 1 + 1 AS solution');
+    })
+    .then(results => {
+        console.log('The solution is:', results[0][0].solution);
+    })
+    .catch(err => {
+        console.error('Error connecting to MySQL:', err);
+    });
+
+module.exports = sequelize;
