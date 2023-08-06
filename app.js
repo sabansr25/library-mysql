@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const booksRouter = require('./routes/routes');
-const usersRouter = require('./routes/routes2')
+const booksRouter = require('./routes/main');
+const usersRouter = require('./routes/signup');
+const usersRouter2 = require('./routes/login');
 const app = express();
 const ejs = require('ejs');
 
@@ -25,11 +26,12 @@ app.get('/library/sign-up', function (req, res) {
     res.render('pages/signUp');
 });
 
-
+ 
 
 // Mount the books router 
 app.use('/library', booksRouter);
 app.use('/library', usersRouter);
+app.use('/library', usersRouter2);
 
 
 // Start the server

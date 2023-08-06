@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { sequelize, User } = require('../database/db2');
-const ejs = require('ejs');
 const router = express.Router();
 
 async function createUser(firstName,lastName, email, password) {
