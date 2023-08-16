@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/headermain'); %>
+    </header>
+
+    <main>
+
+ 
+        <div style="margin-top: 50px;">
+               <h1 style="margin-left: 60 px;">Add new book</h1>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col text-center" >
+                       
+
+<form action="/library/add" method="POST" style="margin-top: 20px;">
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Title</span>
+        <input type="text" class="form-control" placeholder="title" aria-label="Username"
+            aria-describedby="basic-addon1" name="title" id="title" required>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Autor</span>
+        <input type="text" class="form-control" placeholder="autor" aria-label="Username"
+            aria-describedby="basic-addon1" name="author" id="author" required>
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Year</span>
+        <input type="text" class="form-control" placeholder="year" aria-label="Username"
+            aria-describedby="basic-addon1" id="year" name="year" required >
+    </div>
+    
+    <button type="submit" class="btn btn-dark" style="margin-left: 0px;">Add Book</button>
+
+</form>
+
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+
+
+
+        </div>
+</div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/headermain'); %>
+    </header>
+
+<main>
+    <div style="margin-top: 50px;">
+        <h1>Edit Book</h1>
+                <% if (book) { %>
+                    <div style="margin-top: 30px;" class="container text-center">
+                        <div class="row">
+                            <div class="col text-center">
+                                <form action="/library/edit/<%= book.id %>" method="POST">
+                                    <input type="hidden" name="_method" value="PUT">
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Title</span>
+                                        <input type="text" class="form-control" placeholder="<%= book.title %>"
+                                            aria-label="title" aria-describedby="basic-addon1" name="title" required>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Author</span>
+                                        <input type="text" class="form-control" placeholder="<%= book.author %>"
+                                            aria-label="author" aria-describedby="basic-addon1" name="author" required>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Year</span>
+                                        <input type="text" class="form-control" placeholder="<%= book.year %>"
+                                            aria-label="year" aria-describedby="basic-addon1" name="year" required>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-dark">Update Book</button>
+                                </form>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <p>Book not found.</p>
+                        <% } %>
+    </div>
+</main>
+
+
+    <footer>
+
+    </footer>
+
+</body>
+</html>

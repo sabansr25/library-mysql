@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/headermain'); %>
+    </header>
+
+    <main>
+
+        <div style="margin-top: 50px;">
+            <h1> Find book</h1>
+
+            <% if (book) { %> 
+                <div style="border: dotted; padding: 30px; height: fit-content; width: fit-content;">
+                <h2>
+                    <%= book.title %>
+                </h2>
+               
+                <p><strong>Author:</strong>
+                    <%= book.author %>
+                </p>
+                <p><strong>Year:</strong>
+                    <%= book.year %>
+                </p>
+                <% } else { %>
+                    <p>Book not found.</p>
+                    <% } %>
+                </div>
+        </div>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+</body>
+
+</html>
